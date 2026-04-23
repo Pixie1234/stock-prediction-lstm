@@ -31,8 +31,6 @@ from evaluation import (
     evaluate_predictions, baseline_comparison,
     mcnemar_significance, ablation_summary
 )
-from finlight_client import FinlightApi, ApiConfig
-from finlight_client.models import GetArticlesParams
 from sp500 import load_sp500
 
 # ============================================================
@@ -422,18 +420,16 @@ if st.button("Fetch News & Apply Sentiment", type="primary"):
 
 if st.session_state.news_fetched:
     try:
-        api_key = os.environ.get("FINLIGHT_APIKEY") or st.secrets.get("finlight", {}).get("api_key") if hasattr(st, "secrets") else None
-        if not api_key:
-            st.error("FINLIGHT_APIKEY not found. Set it in GitHub secrets or .streamlit/secrets.toml")
-            st.stop()
-
-        client   = FinlightApi(
-            config=ApiConfig(api_key=api_key)
-        )
-        params   = GetArticlesParams(
-            query=symbol, language="en", limit=8
-        )
-        articles = client.articles.fetch_articles(params).articles
+        # Use Alpha Vantage instead of Finlight
+        import requests
+        api_key = os.environ.get("ALPHA_VANTAGE_KEY", "JJ81RCU5EQ1V8V74")
+        
+        url = "https://www.alphavantage.co/query"
+        params = {"function": "NEWS_SENTIMENT", "tickers": symbol, "apikey": api_key, "limit": 10}
+        response = requests.get(url, params=params, timeout=15)
+        data = response.json()
+        
+        articles = data.get("feed", [])[:5]  # Limit to 5 articles
 
         if not articles:
             st.warning("No news found.")
@@ -446,28 +442,35 @@ if st.session_state.news_fetched:
         sentiments = []
 
         for art in articles:
-            st.markdown(f"### {art.title}")
-            trade_date = assign_to_trading_day(art.publishDate)
-            st.caption(
-                f"{art.source} · {art.publishDate} "
-                f"→ Trading day: "
-                f"{trade_date.date() if trade_date else 'N/A'}"
-            )
-
-            text = art.summary or art.title
+            title = art.get("title", "No title")
+            summary = art.get("summary", "")
+            st.markdown(f"### {title}")
+            
+            time_str = art.get("time_published", "")
+            from datetime import datetime
+            if time_str:
+                try:
+                    pub_date = datetime.strptime(time_str, "%Y%m%d%H%M%S")
+                except:
+                    pub_date = datetime.now()
+            else:
+                pub_date = datetime.now()
+            
+            st.caption(f"Time published: {pub_date}")
+            
+            text = f"{title} {summary}"
             fin_l, fin_s = finbert_sentiment(text, fin_tok, fin_mod)
             rob_l, rob_s = roberta_sentiment(text, roberta)
             bias = fuse_sentiment(fin_l, fin_s, rob_l, rob_s)
-
+            
             biases.append(bias)
-            pub_times.append(art.publishDate)
-
+            pub_times.append(pub_date)
+            
             sentiments.append({
-                "Title": art.title[:60] + "...",
+                "Title": title[:60] + "...",
                 "FinBERT": f"{fin_l} ({fin_s:.2f})",
                 "RoBERTa": f"{rob_l} ({rob_s:.2f})",
                 "Bias": f"{bias:+.4f}",
-                "TradeDay": str(trade_date.date() if trade_date else "N/A"),
             })
 
             col1, col2 = st.columns(2)
@@ -487,9 +490,13 @@ if st.session_state.news_fetched:
                 else:
                     st.info(f"RoBERTa {rob_l} ({rob_s:.2f})")
 
-            if art.summary:
-                st.write(art.summary)
-            st.markdown(f"[Read article]({art.link})")
+            if summary:
+                st.write(summary)
+            
+            link = art.get("url", "")
+            if link:
+                st.markdown(f"[Read article]({link})")
+            
             st.divider()
 
         # ── STEP 2: aggregate with recency weighting ──
