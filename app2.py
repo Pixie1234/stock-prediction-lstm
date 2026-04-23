@@ -422,9 +422,9 @@ if st.button("Fetch News & Apply Sentiment", type="primary"):
 
 if st.session_state.news_fetched:
     try:
-        api_key = st.secrets.get("FINLIGHT_API_KEY", None)
+        api_key = os.environ.get("FINLIGHT_APIKEY") or st.secrets.get("finlight", {}).get("api_key") if hasattr(st, "secrets") else None
         if not api_key:
-            st.error("FINLIGHT_API_KEY not found in secrets.toml")
+            st.error("FINLIGHT_APIKEY not found. Set it in GitHub secrets or .streamlit/secrets.toml")
             st.stop()
 
         client   = FinlightApi(
