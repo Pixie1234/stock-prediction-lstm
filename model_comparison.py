@@ -9,7 +9,7 @@ from data_pipeline import prepare_data, SEQ_LEN, N_FEATURES
 from lstm_model import load_model
 import requests
 
-API_KEY = "JJ81RCU5EQ1V8V74"
+API_KEY = os.environ.get("ALPHA_VANTAGE_KEY", "")
 SYMBOLS = ["AAPL", "MSFT", "NVDA", "XOM", "JPM"]
 
 print("Starting model comparison...", flush=True)

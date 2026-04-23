@@ -422,7 +422,7 @@ if st.session_state.news_fetched:
     try:
         # Use Alpha Vantage instead of Finlight
         import requests
-        api_key = os.environ.get("ALPHA_VANTAGE_KEY", "JJ81RCU5EQ1V8V74")
+        api_key = os.environ.get("ALPHA_VANTAGE_KEY", "")
         
         url = "https://www.alphavantage.co/query"
         params = {"function": "NEWS_SENTIMENT", "tickers": symbol, "apikey": api_key, "limit": 10}
