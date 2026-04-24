@@ -32,10 +32,10 @@ Sentiment: Neutral (+0.0041)
 
 ## Methodology
 
+- **Data Split:** 70% Train / 15% Validation / 15% Test (temporal)
 - **News Source:** Finlight API (real financial news)
 - **Sentiment Model:** FinBERT (60%) + RoBERTa (40%) fusion
-- **Test Period:** 30 days (Aug-Oct 2025)
-- **Train/Test Split:** 65%/35%
+- **Test Period:** 30 days
 
 ## Key Finding
 
