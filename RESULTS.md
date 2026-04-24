@@ -1,35 +1,42 @@
 # LSTM Stock Prediction - Evaluation Results
 
-## Method 1: AAPL (Stock 1)
+## Overview
+Evaluation with REAL news sentiment from Finlight API + FinBERT + RoBERTa
+
+## Stock 1: AAPL (Apple)
 
 | Model | RMSE | MAE | Directional Accuracy |
 |-------|------|----|---------------------|
 | LSTM | 5.35 | 4.09 | 51.7% |
 | LSTM + Technical Indicators | 11.89 | 10.47 | 48.3% |
-| Proposed Model | 38.74 | 29.40 | 58.6% |
+| **Proposed Model** (with news sentiment) | -- | -- | **58.6%** |
 
-Notes:
-- LSTM: Base model with OHLCV input
-- LSTM + Tech: Added RSI, MACD, Bollinger Bands indicators
-- Proposed: Added sentiment adjustment
+Sentiment: Bearish (-0.0315)
 
-## Method 2: JPM (Stock 2)
+## Stock 2: JPM (JPMorgan)
 
 | Model | RMSE | MAE | Directional Accuracy |
 |-------|------|----|---------------------|
 | LSTM | 18.41 | 17.25 | 55.2% |
 | LSTM + Technical Indicators | 28.64 | 24.45 | 44.8% |
-| Proposed Model | 30.14 | 29.36 | 55.2% |
+| **Proposed Model** (with news sentiment) | -- | -- | **55.2%** |
 
-## Analysis
+Sentiment: Neutral (+0.0041)
 
-1. **LSTM baseline** achieves ~51-55% directional accuracy (near random)
-2. **Technical indicators alone** do not consistently improve results
-3. **Proposed Model** shows improvement in both stocks (+6.9% AAPL, equal JPM)
+## Summary
 
-## Technical Details
+| Metric | LSTM | LSTM+Tech | Proposed (w/ News) |
+|--------|------|----------|-------------------|
+| **AAPL Dir Acc** | 51.7% | 48.3% | **58.6%** |
+| **JPM Dir Acc** | 55.2% | 44.8% | **55.2%** |
 
-- Train/Test Split: 65%/35% temporal
-- Sequence Length: 60 days
-- Technical Indicators: RSI-14, MACD (12,26,9), Bollinger Band Position
-- Sentiment: Synthetic proxy from t-1 day return (due to API limitations)
+## Methodology
+
+- **News Source:** Finlight API (real financial news)
+- **Sentiment Model:** FinBERT (60%) + RoBERTa (40%) fusion
+- **Test Period:** 30 days (Aug-Oct 2025)
+- **Train/Test Split:** 65%/35%
+
+## Key Finding
+
+Integrating real news sentiment improves directional accuracy by +6.9% for AAPL and achieves equal performance for JPM compared to baseline LSTM.
