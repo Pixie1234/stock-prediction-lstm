@@ -107,11 +107,13 @@ This is documented as a **proof of concept** - actual validation requires histor
 
 ### Financial News API Constraints
 
-Financial news APIs (both free and paid tiers) generally provide only current/recent news, not historical data:
+Financial news APIs have limited historical data:
 
-1. **No Historical News:** Most financial news APIs return only recent news (past days/weeks), not news from months or years ago
-2. **Cannot Backtest:** Testing stock prediction requires news from BEFORE prediction dates
-3. **Industry-Wide Issue:** Even paid subscriptions to Bloomberg, Reuters, Finwiz etc. have limited historical news access
+1. **Free APIs:** Only current/recent news (past few days)
+2. **Paid APIs:** Some provide historical data (Bloomberg, Refinitiv) but cost $15K-25K+/year
+3. **Research Access:** Even paid APIs are not easily accessible for academic/thesis work
+
+**Industry Reality:** Complete historical news data for backtesting is not readily available at reasonable cost.
 
 Therefore, a proof of concept was developed using price momentum as sentiment proxy to demonstrate the methodology works.
 
