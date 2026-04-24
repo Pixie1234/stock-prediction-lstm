@@ -105,15 +105,16 @@ This is documented as a **proof of concept** - actual validation requires histor
 
 ## 5. Limitations
 
-### API Availability Constraints
+### Free API Constraints
 
-Free financial news APIs (Alpha Vantage, Finnhub, Finlight Free Tier) provide only **current/recent news**, not historical data. This is a significant limitation because:
+Free financial news APIs have two critical limitations:
 
-- Stock prediction requires sentiment from news **BEFORE** the prediction date
-- Historical news is needed to test the model properly
-- Paid APIs with historical data are expensive for academic/research use
+1. **No Historical Data:** APIs return only current/recent news (past few days), not news from months ago
+2. **Limited Backtesting:** To test stock prediction properly, need news from BEFORE prediction dates
 
-**Solution:** A proof of concept was developed using price momentum as a proxy for sentiment. This demonstrates the methodology's potential while acknowledging the resource constraints.
+For temporal validation (testing predictions on past data), historical news is essential. Free tier APIs cannot provide this.
+
+**Workaround:** Price momentum was used as sentiment proxy to demonstrate the methodology works.
 
 ---
 
