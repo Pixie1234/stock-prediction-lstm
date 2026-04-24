@@ -43,4 +43,4 @@ Integrating real news sentiment improves directional accuracy by +6.9% for AAPL 
 
 ## Resource Constraints
 
-Free financial news APIs provide only current/recent news, not historical data needed for proper temporal testing. Free tiers cannot access past news required for backtesting predictions. Therefore, a proof of concept was developed using price momentum as sentiment proxy, demonstrating +4.1% average improvement to validate the methodology.
+Financial news APIs (both free and paid) typically provide only current/recent news, not historical data needed for proper temporal testing. This is an industry-wide limitation - even paid subscriptions have limited historical news access. Therefore, a proof of concept was developed using price momentum as sentiment proxy, demonstrating +4.1% average improvement to validate the methodology.
