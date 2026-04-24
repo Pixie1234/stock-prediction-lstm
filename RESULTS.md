@@ -1,9 +1,8 @@
 # LSTM Stock Prediction - Evaluation Results
 
-## Overview
-Evaluation with REAL news sentiment from Finlight API + FinBERT + RoBERTa
+## 1. Real News Results (Finlight API)
 
-## Stock 1: AAPL (Apple)
+### Stock 1: AAPL (Apple)
 
 | Model | RMSE | MAE | Directional Accuracy |
 |-------|------|----|---------------------|
@@ -13,7 +12,7 @@ Evaluation with REAL news sentiment from Finlight API + FinBERT + RoBERTa
 
 Sentiment: Bearish (-0.0315)
 
-## Stock 2: JPM (JPMorgan)
+### Stock 2: JPM (JPMorgan)
 
 | Model | RMSE | MAE | Directional Accuracy |
 |-------|------|----|---------------------|
@@ -23,12 +22,39 @@ Sentiment: Bearish (-0.0315)
 
 Sentiment: Neutral (+0.0041)
 
+---
+
+## 2. Proof of Concept Results (Synthetic Sentiment)
+
+Using price momentum as sentiment proxy:
+
+| Stock | LSTM+Tech | Proposed (Synthetic) |
+|-------|-----------|---------------------|
+| AAPL | 58.6% | 65.5% |
+| MSFT | 51.7% | 48.3% |
+| NVDA | 51.7% | 58.6% |
+| XOM | 62.1% | 62.1% |
+| JPM | 48.3% | 58.6% |
+| **Average** | **54.5%** | **58.6%** |
+
+---
+
 ## Summary
 
-| Metric | LSTM | LSTM+Tech | Proposed (w/ News) |
-|--------|------|----------|-------------------|
-| **AAPL Dir Acc** | 51.7% | 48.3% | **58.6%** |
-| **JPM Dir Acc** | 55.2% | 44.8% | **55.2%** |
+### Real News (Finlight)
+
+| Stock | LSTM | LSTM+Tech | Proposed |
+|-------|------|-----------|----------|
+| AAPL | 51.7% | 48.3% | **58.6%** |
+| JPM | 55.2% | 44.8% | **55.2%** |
+
+### Proof of Concept (5 Stocks)
+
+| Metric | LSTM+Tech | Proposed |
+|--------|-----------|----------|
+| Average Dir Acc | 54.5% | **58.6%** |
+
+---
 
 ## Methodology
 
@@ -37,9 +63,11 @@ Sentiment: Neutral (+0.0041)
 - **Sentiment Model:** FinBERT (60%) + RoBERTa (40%) fusion
 - **Test Period:** 30 days
 
-## Key Finding
+## Key Findings
 
-Integrating real news sentiment improves directional accuracy by +6.9% for AAPL and achieves equal performance for JPM compared to baseline LSTM.
+1. **With real news (AAPL):** +6.9% improvement
+2. **With synthetic sentiment:** +4.1% average improvement
+3. Proposed model outperforms baseline in majority of cases
 
 ## Resource Constraints
 
