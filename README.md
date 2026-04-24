@@ -105,14 +105,15 @@ This is documented as a **proof of concept** - actual validation requires histor
 
 ## 5. Limitations
 
-### Why Synthetic Sentiment?
+### API Availability Constraints
 
-Major financial news APIs (Alpha Vantage, Finnhub, Finlight) do NOT provide historical news data:
-- Alpha Vantage: Only current/recent news
-- Finnhub: Only current news
-- Finlight: Only current news
+Free financial news APIs (Alpha Vantage, Finnhub, Finlight Free Tier) provide only **current/recent news**, not historical data. This is a significant limitation because:
 
-**Therefore:** A proof of concept was created using price momentum as sentiment proxy to demonstrate the methodology.
+- Stock prediction requires sentiment from news **BEFORE** the prediction date
+- Historical news is needed to test the model properly
+- Paid APIs with historical data are expensive for academic/research use
+
+**Solution:** A proof of concept was developed using price momentum as a proxy for sentiment. This demonstrates the methodology's potential while acknowledging the resource constraints.
 
 ---
 

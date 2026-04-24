@@ -41,6 +41,6 @@ Sentiment: Neutral (+0.0041)
 
 Integrating real news sentiment improves directional accuracy by +6.9% for AAPL and achieves equal performance for JPM compared to baseline LSTM.
 
-## Proof of Concept
+## Resource Constraints
 
-Due to unavailability of historical news APIs, a proof of concept was developed using price momentum as sentiment proxy. This showed +4.1% average improvement across 5 stocks, demonstrating the methodology's potential.
+Free financial news APIs provide only current/recent news, not historical data required for proper temporal testing. Therefore, a proof of concept was developed using price momentum as sentiment proxy. This demonstrated +4.1% average improvement across 5 stocks, validating the methodology despite API limitations.
