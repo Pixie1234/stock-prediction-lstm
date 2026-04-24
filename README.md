@@ -37,13 +37,13 @@ Bidirectional LSTM with Layer Normalization
 
 ### 2.3 Sentiment Integration
 
-**Due to unavailability of historical financial news APIs**, we used two approaches:
+**Due to unavailability of historical financial news APIs**, two approaches were used:
 
 #### Approach 1: Real News (Finlight API)
-Used Finlight API to fetch real financial news, then applied FinBERT + RoBERTa sentiment fusion.
+Finlight API was used to fetch real financial news, then FinBERT + RoBERTa sentiment fusion was applied.
 
 #### Approach 2: Proof of Concept (Synthetic)
-Since historical news APIs are not available, we simulated sentiment using price momentum as a proxy:
+Since historical news APIs are not available, sentiment was simulated using price momentum as a proxy:
 
 ```python
 # Synthetic sentiment from t-1 day return
@@ -112,7 +112,7 @@ Major financial news APIs (Alpha Vantage, Finnhub, Finlight) do NOT provide hist
 - Finnhub: Only current news
 - Finlight: Only current news
 
-**Therefore:** We created a proof of concept using price momentum as sentiment proxy to demonstrate the methodology.
+**Therefore:** A proof of concept was created using price momentum as sentiment proxy to demonstrate the methodology.
 
 ---
 
